@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Quirino API</title>
     <link rel="stylesheet" href="css/style.css" />
     <style>
       .fade-in {
@@ -78,7 +78,7 @@
     >
       <div
         id="button-container"
-        class="size-[220px] shadow-2xl rounded-[50%] bg-white flex flex-col justify-center items-center gap-y-8 shadow-xl backdrop-blur-3xl animate"
+        class="size-[220px] shadow-2xl rounded-[50%] bg-white flex flex-col justify-center items-center gap-y-8 backdrop-blur-3xl animate"
       >
         <button
           id="start-btn"
@@ -89,16 +89,7 @@
         </button>
         <!-- <h2 id="btn-text" class="text-4xl">Start</h2> -->
       </div>
-      <div class="z-10">
-        <div id="spinner" class="hidden animate relative bottom-6 opacity-100 duration-700">
-          <h3 class="text-2xl relative right-24 text-[#DE5147]">Please Wait</h3>
-          <svg class="spinner absolute" viewBox="0 0 50 50">
-            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-          </svg>
-        </div>
-      </div>
     </aside>
-
     <div
       id="box"
       class="absolute bottom-1/2 right-52 bg-white rounded-full transition-all ease-linear duration-[1000ms] transform z-[-1]"
@@ -108,35 +99,24 @@
       const removeButtonContainer = (buttonContainer) => {
         setTimeout(() => {
           buttonContainer.classList.add("scale-75", "opacity-0")
-        }, 11500)
+        }, 500)
 
         setTimeout(() => {
           buttonContainer.remove()
-        }, 11800)
-      }
-
-      const showLoadingSpinner = (spinner) => {
-        setTimeout(() => {
-          spinner.classList.replace("hidden", "block")
-        }, 11800)
+        }, 800)
       }
 
       const expandCircle = (box) => {
         setTimeout(() => {
           box.classList.add("scale-[12000%]", "size-8")
-        }, 11700)
-      }
-
-      const fadeLoadingSpinner = (spinner) => {
-        setTimeout(() => {
-          spinner.classList.replace("opacity-100", "opacity-0")
-        }, 12000)
+        }, 4000)
       }
 
       const redirect = () => {
         setTimeout(() => {
           window.location.href = "https://fast.com/"
-        }, 13000)
+          // window.location.href = "https://tinyurl.com/quirino-ap"
+        }, 5000)
       }
 
       const hideMap = (map) => {
@@ -149,18 +129,16 @@
 
       const handleClick = () => {
         const buttonContainer = document.getElementById("button-container")
-        const spinner = document.getElementById("spinner")
         const box = document.getElementById("box")
         const map = document.getElementById("quirino-map")
         const video = document.getElementById("map-video")
+        video.defaultPlaybackRate = 3
+        video.load()
 
         hideMap(map)
         playVideo(video)
-
         removeButtonContainer(buttonContainer)
-        showLoadingSpinner(spinner)
         expandCircle(box)
-        fadeLoadingSpinner(spinner)
         redirect()
       }
     </script>
