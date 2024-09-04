@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.5s forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .animate {
+        transition: all 0.5s ease-out;
+      }
+
+      .spinner {
+        animation: rotate 2s linear infinite;
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -25px 0 0 -25px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .spinner .path {
+        stroke: #de5147;
+        stroke-linecap: round;
+        animation: dash 1.5s ease-in-out infinite;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes dash {
+        0% {
+          stroke-dasharray: 1, 150;
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -35;
+        }
+        100% {
+          stroke-dasharray: 90, 150;
+          stroke-dashoffset: -124;
+        }
+      }
+    </style>
+  </head>
+  <!-- <body
+    class="h-screen w-screen min-w-screen max-w-screen bg-[#02A9F7] grid grid-cols-[1fr_500px] overflow-hidden fade-in"
+  > -->
+  <body class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in">
+    <div class="bg-red-200 relative overflow-hidden z-[-2]">
+      <img src="./img/map.png" alt="map" class="h-screen w-screen" />
+    </div>
+
+    <aside
+      class="absolute top-0 right-0 flex justify-center items-center overflow-hidden w-[500px] bg-[#02A9F7] h-screen z-[-1]"
+    >
+      <div
+        id="button-container"
+        class="size-[250px] rounded-[50px] bg-white flex flex-col justify-center items-center gap-y-8 shadow-xl backdrop-blur-3xl animate"
+      >
+        <button
+          id="start-btn"
+          onclick="handleClick()"
+          class="scale-150 hover:scale-[135%] animate active:scale-100 z-[30]"
+        >
+          <img src="./img/start-btn.png" alt="start-button" />
+        </button>
+        <h2 id="btn-text" class="text-4xl">Start</h2>
+      </div>
+      <div class="z-10">
+        <div id="spinner" class="hidden animate relative bottom-6 opacity-100 duration-700">
+          <h3 class="text-2xl relative right-24 text-[#DE5147]">Please Wait</h3>
+          <svg class="spinner absolute" viewBox="0 0 50 50">
+            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+          </svg>
+        </div>
+      </div>
+    </aside>
+
+    <div
+      id="box"
+      class="absolute bottom-1/2 right-52 bg-white rounded-full transition-all ease-linear duration-[1000ms] transform z-[-1]"
+    ></div>
+
+    <script>
+      const removeButtonContainer = (buttonContainer) => {
+        setTimeout(() => {
+          buttonContainer.classList.add("scale-75", "opacity-0")
+        }, 500)
+
+        setTimeout(() => {
+          buttonContainer.remove()
+        }, 800)
+      }
+
+      const showLoadingSpinner = (spinner) => {
+        setTimeout(() => {
+          spinner.classList.replace("hidden", "block")
+        }, 800)
+      }
+
+      const expandCircle = (box) => {
+        setTimeout(() => {
+          box.classList.add("scale-[12000%]", "size-8")
+        }, 700)
+      }
+
+      const fadeLoadingSpinner = (spinner) => {
+        setTimeout(() => {
+          spinner.classList.replace("opacity-100", "opacity-0")
+        }, 2000)
+      }
+
+      const redirect = () => {
+        setTimeout(() => {
+          window.location.href = "https://fast.com/"
+        }, 3000)
+      }
+
+      const handleClick = () => {
+        const buttonContainer = document.getElementById("button-container")
+        const spinner = document.getElementById("spinner")
+        const box = document.getElementById("box")
+
+        removeButtonContainer(buttonContainer)
+        showLoadingSpinner(spinner)
+        expandCircle(box)
+        fadeLoadingSpinner(spinner)
+        redirect()
+      }
+    </script>
+  </body>
+</html>
