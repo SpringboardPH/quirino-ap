@@ -6,6 +6,34 @@
     <title>Quirino API</title>
     <link rel="stylesheet" href="css/style.css" />
     <style>
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 1s forwards; /* Increased duration to make the fade-in visible */
+      }
+
+      .fade-out {
+        opacity: 1;
+        animation: fadeOut 1s forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
       #video-container {
         position: relative;
         overflow: hidden;
@@ -24,18 +52,23 @@
     </style>
   </head>
 
-  <body class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative">
+  <body
+    class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative bg-gradient-to-t from-[#02214F] to-5% to-[#032A64]"
+  >
     <div id="video-container">
       <video id="video-test" class="animate -z-10" muted>
         <source src="./img/speedtest.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <img
-        src="./img/qr-code.png"
-        alt="qr-code"
-        class="w-screen h-screen hidden animate"
+      <div
+        class="w-screen h-screen flex-col justify-center items-center relative hidden -top-10"
         id="qr-code"
-      />
+      >
+        <img src="./img/qr-code.png" alt="qr-code" class="h-screen animate" />
+        <button class="absolute bottom-0 right-[870px] bg-white rounded-md" onclick="handleClick()">
+          <img src="./img//zoom.png" alt="zoom" />
+        </button>
+      </div>
     </div>
 
     <script>
@@ -46,16 +79,34 @@
           video.play()
         }, 500)
       }
+
       const hideVideo = (video) => {
         setTimeout(() => {
-          video.classList.add("hidden")
-        }, 12000)
+          video.classList.add("fade-out") // Smooth fade-out
+          setTimeout(() => {
+            video.classList.add("hidden") // Add hidden after fade-out finishes
+          }, 1000) // Matches the fadeOut animation duration
+        }, 16000)
+      }
+
+      const fadeOutContent = () => {
+        document.body.classList.remove("fade-in") // Remove fade-in class
+        setTimeout(() => {
+          document.body.classList.add("fade-out")
+        }, 16000)
+      }
+
+      const fadeInContent = () => {
+        setTimeout(() => {
+          document.body.classList.remove("fade-out") // Ensure fade-out is removed
+          document.body.classList.add("fade-in")
+        }, 17500) // Ensure the fade-out finishes before fade-in starts
       }
 
       const showQRCode = (qrCode) => {
         setTimeout(() => {
           qrCode.classList.replace("hidden", "flex")
-        }, 12100)
+        }, 17500)
       }
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -67,8 +118,14 @@
 
         playVideo(video)
         hideVideo(video)
+        fadeOutContent()
+        fadeInContent() // Adjusted fadeIn timing
         showQRCode(qrCode)
       })
+
+      const handleClick = () => {
+        window.location.href = "https://rb.gy/im7f64"
+      }
     </script>
   </body>
 </html>
