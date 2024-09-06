@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quirino API</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      #video-container {
+        position: relative;
+        overflow: hidden;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #video-test {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 102%;
+        height: 100%;
+        object-fit: fill;
+      }
+    </style>
+  </head>
+
+  <body class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative">
+    <div id="video-container">
+      <video id="video-test" class="animate -z-10" muted>
+        <source src="./img/speedtest.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <img
+        src="./img/qr-code.png"
+        alt="qr-code"
+        class="w-screen h-screen hidden animate"
+        id="qr-code"
+      />
+    </div>
+
+    <script>
+      const playVideo = (video) => {
+        video.classList.replace("hidden", "flex")
+
+        setTimeout(() => {
+          video.play()
+        }, 500)
+      }
+      const hideVideo = (video) => {
+        setTimeout(() => {
+          video.classList.add("hidden")
+        }, 12000)
+      }
+
+      const showQRCode = (qrCode) => {
+        setTimeout(() => {
+          qrCode.classList.replace("hidden", "flex")
+        }, 12100)
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const video = document.getElementById("video-test")
+        video.defaultPlaybackRate = 1
+        video.load()
+
+        const qrCode = document.getElementById("qr-code")
+
+        playVideo(video)
+        hideVideo(video)
+        showQRCode(qrCode)
+      })
+    </script>
+  </body>
+</html>

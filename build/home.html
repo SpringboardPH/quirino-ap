@@ -65,10 +65,20 @@
   </head>
 
   <body class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative">
-    <div class="bg-blue-200 relative overflow-hidden z-[-2]">
-      <img id="quirino-map" src="./img/map2.gif" alt="map" class="h-screen w-screen animate flex" />
-      <video id="map-video" class="w-screen flex animate" muted>
-        <source src="./img/map-video.mp4" type="video/mp4" />
+    <div
+      class="absolute top-0 left-0 h-screen w-[400px] bg-gradient-to-r from-[#042A64] via-[#042A64] to-90% to-transparent z-[-2]"
+    ></div>
+    <div
+      class="bg-[#042A64] relative overflow-hidden z-[-3] flex w-screen h-screen justify-center items-center"
+    >
+      <img
+        id="quirino-map"
+        src="./img/map.png"
+        alt="map"
+        class="animate flex h-screen bg-cover bg-no-repeat justify-center items-center"
+      />
+      <video id="map-video" class="animate h-screen w-screen hidden" muted>
+        <source src="./img/map-video2.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
@@ -87,7 +97,6 @@
         >
           <img src="./img/start-btn.png" alt="start-button" />
         </button>
-        <!-- <h2 id="btn-text" class="text-4xl">Start</h2> -->
       </div>
     </aside>
     <div
@@ -96,6 +105,18 @@
     ></div>
 
     <script>
+      const hideMap = (map) => {
+        map.classList.replace("flex", "hidden")
+      }
+
+      const playVideo = (video) => {
+        video.classList.replace("hidden", "flex")
+        video.play()
+        setTimeout(() => {
+          video.pause()
+        }, 5800)
+      }
+
       const removeButtonContainer = (buttonContainer) => {
         setTimeout(() => {
           buttonContainer.classList.add("scale-75", "opacity-0")
@@ -108,23 +129,14 @@
 
       const expandCircle = (box) => {
         setTimeout(() => {
-          box.classList.add("scale-[12000%]", "size-8")
-        }, 4000)
+          box.classList.add("scale-[15000%]", "size-8")
+        }, 6400)
       }
 
       const redirect = () => {
         setTimeout(() => {
-          // window.location.href = "https://fast.com/"
-          window.location.href = "https://tinyurl.com/quirino-ap"
-        }, 5000)
-      }
-
-      const hideMap = (map) => {
-        map.classList.replace("flex", "hidden")
-      }
-      const playVideo = (video) => {
-        video.classList.replace("hidden", "flex")
-        video.play()
+          window.location.href = "speedtest.html"
+        }, 7500)
       }
 
       const handleClick = () => {
@@ -132,7 +144,7 @@
         const box = document.getElementById("box")
         const map = document.getElementById("quirino-map")
         const video = document.getElementById("map-video")
-        video.defaultPlaybackRate = 3
+        video.defaultPlaybackRate = 1
         video.load()
 
         hideMap(map)
