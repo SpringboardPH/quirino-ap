@@ -64,7 +64,7 @@
         class="w-screen h-screen flex-col justify-center items-center relative hidden -top-10"
         id="qr-code"
       >
-        <img src="./img/qr-code.webp" alt="qr-code" class="h-screen w-screen animate flex" />
+        <img src="./img/qr-code.png" alt="qr-code" class="h-screen w-screen animate flex" />
         <button
           class="absolute bottom-0 right-[700px] bg-transparent rounded-md"
           onclick="handleClick()"
@@ -81,9 +81,21 @@
         const qrCode = document.getElementById("qr-code")
 
         video.defaultPlaybackRate = 2
+
+        // Play the video after 3 seconds
         setTimeout(() => {
           video.play()
         }, 3000)
+
+        // Pause the video after 15 seconds and resume after 5 seconds
+        setTimeout(() => {
+          video.pause()
+
+          // After 5 seconds, continue playing the video
+          setTimeout(() => {
+            video.play()
+          }, 5000)
+        }, 19500) // Pause after 15 seconds
 
         video.addEventListener("ended", () => {
           videoContainer.classList.add("fade-out")
@@ -95,7 +107,6 @@
           setTimeout(() => {
             videoContainer.classList.replace("fade-out", "fade-in")
           }, 2000)
-          // videoContainer.classList.replace("flex", "hidden")
         })
       })
 
