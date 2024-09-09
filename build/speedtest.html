@@ -81,12 +81,21 @@
         const qrCode = document.getElementById("qr-code")
 
         video.defaultPlaybackRate = 2
-        video.play()
+        setTimeout(() => {
+          video.play()
+        }, 3000)
+
         video.addEventListener("ended", () => {
+          videoContainer.classList.add("fade-out")
+
           setTimeout(() => {
             qrCode.classList.replace("hidden", "flex")
-            videoContainer.classList.replace("flex", "hidden")
-          }, 200)
+          }, 1000)
+
+          setTimeout(() => {
+            videoContainer.classList.replace("fade-out", "fade-in")
+          }, 2000)
+          // videoContainer.classList.replace("flex", "hidden")
         })
       })
 

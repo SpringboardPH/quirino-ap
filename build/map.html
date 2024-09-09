@@ -57,6 +57,11 @@
       id="box"
       class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full transition-all ease-linear duration-1000 z-[-1]"
     ></div>
+    <audio controls autoplay loop class="opacity-0">
+      <source src="./img/tense-music.mp3" type="audio/mp3" />
+
+      Your browser does not support the audio element.
+    </audio>
 
     <script>
       const hideContainer = (container) => {
@@ -76,7 +81,7 @@
       const redirect = () => {
         setTimeout(() => {
           window.location.href = "speedtest.html"
-        }, 10000)
+        }, 16000)
       }
 
       document.addEventListener("DOMContentLoaded", () => {
@@ -85,10 +90,12 @@
         const box = document.getElementById("box")
         setTimeout(() => {
           mapVideo.play()
-        }, 2000)
+        }, 3000)
 
         mapVideo.addEventListener("ended", () => {
-          expandCircle(box)
+          setTimeout(() => {
+            expandCircle(box)
+          }, 4000)
         })
 
         redirect()

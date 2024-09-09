@@ -42,7 +42,7 @@
       id="earth-container"
       class="absolute overflow-hidden z-[-3] flex w-screen h-screen justify-center items-center"
     >
-      <video id="earth-video" class="animate h-screen w-screen object-cover" loop>
+      <video id="earth-video" class="animate h-screen w-screen object-cover" loop muted>
         <source src="./img/earth.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -61,7 +61,7 @@
     <button
       id="hidden-btn"
       onclick="handleClick()"
-      class="absolute click-btn top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 size-[350px] scale-[200%] rounded-full"
+      class="absolute click-btn top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 size-[350px] scale-[200%] rounded-full flex"
     ></button>
     <div
       id="box"
@@ -94,7 +94,6 @@
         const earthContainer = document.getElementById("earth-container")
         const timerContainer = document.getElementById("timer-container")
         const timerVideo = document.getElementById("timer-video")
-        const hiddenBtn = document.getAnimations("hidden-btn")
         const mapContainer = document.getElementById("map-container")
         const mapVideo = document.getElementById("map-video")
 
