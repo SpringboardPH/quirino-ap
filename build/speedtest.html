@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" c>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
     <style>
       .fade-in {
         opacity: 0;
-        animation: fadeIn 1s forwards; /* Increased duration to make the fade-in visible */
+        animation: fadeIn 1s forwards;
       }
 
       .fade-out {
@@ -52,11 +52,9 @@
     </style>
   </head>
 
-  <body
-    class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative bg-gradient-to-t from-[#02214F] to-5% to-[#032A64]"
-  >
+  <body class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative">
     <div id="video-container">
-      <video id="video-test" class="animate -z-10" muted>
+      <video id="video-test" class="animate -z-10 flex" muted>
         <source src="./img/speedtest.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -79,55 +77,19 @@
     </div>
 
     <script>
-      const playVideo = (video) => {
-        video.classList.replace("hidden", "flex")
-
-        setTimeout(() => {
-          video.play()
-        }, 500)
-      }
-
-      const hideVideo = (video) => {
-        setTimeout(() => {
-          video.classList.add("fade-out") // Smooth fade-out
-          setTimeout(() => {
-            video.classList.add("hidden") // Add hidden after fade-out finishes
-          }, 1000) // Matches the fadeOut animation duration
-        }, 16000)
-      }
-
-      const fadeOutContent = () => {
-        document.body.classList.remove("fade-in") // Remove fade-in class
-        setTimeout(() => {
-          document.body.classList.add("fade-out")
-        }, 16000)
-      }
-
-      const fadeInContent = () => {
-        setTimeout(() => {
-          document.body.classList.remove("fade-out") // Ensure fade-out is removed
-          document.body.classList.add("fade-in")
-        }, 17500) // Ensure the fade-out finishes before fade-in starts
-      }
-
-      const showQRCode = (qrCode) => {
-        setTimeout(() => {
-          qrCode.classList.replace("hidden", "flex")
-        }, 17500)
-      }
-
       document.addEventListener("DOMContentLoaded", () => {
         const video = document.getElementById("video-test")
-        video.defaultPlaybackRate = 1
-        video.load()
-
+        const videoContainer = document.getElementById("video-container")
         const qrCode = document.getElementById("qr-code")
 
-        playVideo(video)
-        hideVideo(video)
-        fadeOutContent()
-        fadeInContent() // Adjusted fadeIn timing
-        showQRCode(qrCode)
+        video.defaultPlaybackRate = 2
+        video.play()
+        video.addEventListener("ended", () => {
+          videoContainer.classList.replace("flex", "hidden")
+          setTimeout(() => {
+            qrCode.classList.replace("hidden", "flex")
+          }, 3000)
+        })
       })
 
       const handleClick = () => {
