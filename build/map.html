@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quirino API</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.5s forwards;
+      }
+
+      .fade-out {
+        opacity: 1;
+        animation: fadeOut 0.5s forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative bg-gradient-to-l from-[#0F2C61] from-30% to-[#163B81]"
+  >
+    <div
+      class="absolute top-0 left-0 h-screen w-[400px] bg-gradient-to-r from-[#042A64] via-[#042A64] to-90% to-transparent z-[-2]"
+    ></div>
+    <!-- QUIRINO MAP -->
+    <div
+      id="map-container"
+      class="absolute overflow-hidden z-[-3] flex w-screen h-screen justify-center items-center"
+    >
+      <video id="map-video" class="animate h-screen w-screen">
+        <source src="./img/map-quirino.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div
+      id="box"
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full transition-all ease-linear duration-1000 z-[-1]"
+    ></div>
+
+    <script>
+      const hideContainer = (container) => {
+        container.classList.replace("flex", "hidden")
+      }
+
+      const showContainer = (container) => {
+        container.classList.replace("hidden", "flex")
+      }
+
+      const expandCircle = (box) => {
+        setTimeout(() => {
+          box.classList.add("scale-[15000%]", "size-8")
+        }, 400)
+      }
+
+      const redirect = () => {
+        setTimeout(() => {
+          window.location.href = "speedtest.html"
+        }, 10000)
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const mapContainer = document.getElementById("map-container")
+        const mapVideo = document.getElementById("map-video")
+        const box = document.getElementById("box")
+        setTimeout(() => {
+          mapVideo.play()
+        }, 2000)
+
+        mapVideo.addEventListener("ended", () => {
+          expandCircle(box)
+        })
+
+        redirect()
+      })
+    </script>
+  </body>
+</html>

@@ -33,117 +33,48 @@
           opacity: 0;
         }
       }
-      .animate {
-        transition: all 0.5s ease-out;
-      }
-
-      .spinner {
-        animation: rotate 2s linear infinite;
-        z-index: 2;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -25px 0 0 -25px;
-        width: 50px;
-        height: 50px;
-      }
-
-      .spinner .path {
-        stroke: #de5147;
-        stroke-linecap: round;
-        animation: dash 1.5s ease-in-out infinite;
-      }
-
-      @keyframes rotate {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes dash {
-        0% {
-          stroke-dasharray: 1, 150;
-          stroke-dashoffset: 0;
-        }
-        50% {
-          stroke-dasharray: 90, 150;
-          stroke-dashoffset: -35;
-        }
-        100% {
-          stroke-dasharray: 90, 150;
-          stroke-dashoffset: -124;
-        }
-      }
     </style>
   </head>
 
   <body class="h-screen w-screen min-w-screen max-w-screen overflow-hidden fade-in relative">
+    <!-- EARTH -->
     <div
-      class="absolute top-0 left-0 h-screen w-[400px] bg-gradient-to-r from-[#042A64] via-[#042A64] to-90% to-transparent z-[-2]"
-    ></div>
-    <div
-      class="bg-[#042A64] relative overflow-hidden z-[-3] flex w-screen h-screen justify-center items-center"
+      id="earth-container"
+      class="absolute overflow-hidden z-[-3] flex w-screen h-screen justify-center items-center"
     >
-      <img
-        id="quirino-map"
-        src="./img/map.png"
-        alt="map"
-        class="animate flex h-screen bg-cover bg-no-repeat justify-center items-center"
-      />
-      <video id="map-video" class="animate h-screen w-screen hidden" muted>
-        <source src="./img/map-video2.mp4" type="video/mp4" />
+      <video id="earth-video" class="animate h-screen w-screen object-cover" loop>
+        <source src="./img/earth.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <!-- TIMER -->
+    <div
+      id="timer-container"
+      class="absolute overflow-hidden z-[-3] w-screen h-screen justify-center items-center hidden"
+    >
+      <video id="timer-video" class="animate h-screen w-screen object-cover">
+        <source src="./img/timer.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
 
-    <aside
-      class="absolute top-0 right-0 flex justify-center items-center overflow-hidden w-[500px] bg-gradient-to-l h-screen z-[-1]"
-    >
-      <div
-        id="button-container"
-        class="size-[220px] shadow-2xl rounded-[50%] bg-white flex flex-col justify-center items-center gap-y-8 backdrop-blur-3xl animate"
-      >
-        <button
-          id="start-btn"
-          onclick="handleClick()"
-          class="scale-150 hover:scale-[135%] animate active:scale-100 z-[30]"
-        >
-          <img src="./img/start-btn.png" alt="start-button" />
-        </button>
-      </div>
-    </aside>
+    <button
+      id="hidden-btn"
+      onclick="handleClick()"
+      class="absolute click-btn top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 size-[350px] scale-[200%] rounded-full"
+    ></button>
     <div
       id="box"
       class="absolute bottom-1/2 right-52 bg-white rounded-full transition-all ease-linear duration-[1000ms] transform z-[-1]"
     ></div>
 
     <script>
-      const hideMap = (map) => {
-        map.classList.replace("flex", "hidden")
+      const hideContainer = (container) => {
+        container.classList.replace("flex", "hidden")
       }
 
-      const playVideo = (video) => {
-        video.classList.replace("hidden", "flex")
-        video.play()
-        setTimeout(() => {
-          video.pause()
-        }, 5800)
-      }
-
-      const removeButtonContainer = (buttonContainer) => {
-        setTimeout(() => {
-          buttonContainer.classList.add("scale-75", "opacity-0")
-        }, 500)
-
-        setTimeout(() => {
-          buttonContainer.remove()
-        }, 800)
-      }
-
-      const expandCircle = (box) => {
-        setTimeout(() => {
-          box.classList.add("scale-[15000%]", "size-8")
-        }, 6400)
+      const showContainer = (container) => {
+        container.classList.replace("hidden", "flex")
       }
 
       const redirect = () => {
@@ -152,19 +83,30 @@
         }, 7500)
       }
 
-      const handleClick = () => {
-        const buttonContainer = document.getElementById("button-container")
-        const box = document.getElementById("box")
-        const map = document.getElementById("quirino-map")
-        const video = document.getElementById("map-video")
+      document.addEventListener("DOMContentLoaded", () => {
+        const video = document.getElementById("earth-video")
         video.defaultPlaybackRate = 1
-        video.load()
+        video.play()
+      })
 
-        hideMap(map)
-        playVideo(video)
-        removeButtonContainer(buttonContainer)
-        expandCircle(box)
-        redirect()
+      const handleClick = () => {
+        const earthVideo = document.getElementById("earth-video")
+        const earthContainer = document.getElementById("earth-container")
+        const timerContainer = document.getElementById("timer-container")
+        const timerVideo = document.getElementById("timer-video")
+        const hiddenBtn = document.getAnimations("hidden-btn")
+        const mapContainer = document.getElementById("map-container")
+        const mapVideo = document.getElementById("map-video")
+
+        earthVideo.pause()
+        hideContainer(earthContainer)
+        showContainer(timerContainer)
+        timerVideo.play()
+
+        // Redirect to a new page after video ended
+        timerVideo.addEventListener("ended", () => {
+          window.location.href = "map.html"
+        })
       }
     </script>
   </body>
