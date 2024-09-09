@@ -678,6 +678,10 @@ video {
   bottom: -3rem;
 }
 
+.right-\[700px\]{
+  right: 700px;
+}
+
 .-z-10{
   z-index: -10;
 }
